@@ -1,0 +1,6 @@
+[submodule "nis_wear_fastapi"]
+	path = nis_wear_fastapi
+	url = https://github.com/BekzhanK1/nis_wear_fastapi.git
+[submodule "nis_wear"]
+	path = nis_wear
+	url = https://github.com/BekzhanK1/nis_wear.git

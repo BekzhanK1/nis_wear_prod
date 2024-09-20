@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./nis_wear
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" # Expose port 3000 for React development
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./nis_wear_fastapi
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+    volumes:
+      - ./nis_wear_fastapi/db:/app/db
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80" # Nginx will serve traffic on port 80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
